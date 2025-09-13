@@ -1,29 +1,31 @@
-# python
+# ---- Python ----
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.db
-*.sqlite3
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
 
-# environments
+# ---- Virtual env ----
 .venv/
 env/
 venv/
 
-# system / editor
+# ---- OS files ----
 .DS_Store
-.idea/
+Thumbs.db
+
+# ---- IDE/editor ----
 .vscode/
+.idea/
 
-# local config / secrets
-*.json
-*.yaml
-*.yml
-*.env
+# ---- Local configs/secrets ----
+gcp_service_account.json
 
-# project specific
-scripts/                  # don’t track scripts
+# ---- Project-specific ----
+scripts/
 Migration documentation.docx
 ~$gration documentation.docx
-
