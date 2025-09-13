@@ -1,0 +1,29 @@
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# environments
+.venv/
+env/
+venv/
+
+# system / editor
+.DS_Store
+.idea/
+.vscode/
+
+# local config / secrets
+*.json
+*.yaml
+*.yml
+*.env
+
+# project specific
+scripts/                  # don’t track scripts
+Migration documentation.docx
+~$gration documentation.docx
+
