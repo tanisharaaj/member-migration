@@ -33,7 +33,7 @@ class BatchResult:
 DB_TIMEOUT = workflow.timedelta(minutes=2)
 EMAIL_TIMEOUT = workflow.timedelta(minutes=3)
 
-@workflow.defn
+@workflow.defn(name="BrokerNotifyWorkflow")
 class BrokerNotifyWorkflow:
     @workflow.run
     async def run(self, inp: BatchInput) -> BatchResult:
