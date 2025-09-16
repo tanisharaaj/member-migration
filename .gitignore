@@ -29,3 +29,9 @@ gcp_service_account.json
 scripts/
 Migration documentation.docx
 ~$gration documentation.docx
+
+
+# Ignore testing docs
+Temporal Migration Testing.docx
+Temporal Migration Testing.pdf
+
