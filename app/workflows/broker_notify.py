@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from typing import List, Dict, Any, Optional
 from collections import defaultdict
 from temporalio import workflow
+from app.utils.invite_links import generate_invite_url
+
 
 
 @dataclass
@@ -388,7 +390,7 @@ class BrokerNotifyWorkflow:
         # 13d. wait 2 minutes before Phase 3 members
         await workflow.sleep(workflow.timedelta(minutes=2))
 
-        # 13e. Phase 3 member emails (Member Template 3)
+                # 13e. Phase 3 member emails (Member Template 3)
         for client_id in client_ids_from_sheet:
             member_emails: List[str] = await workflow.execute_activity(
                 "get_member_emails_activity",
@@ -406,6 +408,20 @@ class BrokerNotifyWorkflow:
                 continue
 
             for to_email in member_emails:
+                # 1. Insert portal + mobile accounts into DB
+                insert_result = await workflow.execute_activity(
+                    "insert_member_accounts_activity",
+                    args=(to_email, "cm7ai8xaa00006bd7bfhmskz3"),
+                    schedule_to_close_timeout=DB_TIMEOUT,
+                )
+
+                # 2. Generate unique invite link
+                invite_url = generate_invite_url(
+                    email=to_email,
+                    company_id="cm7ai8xaa00006bd7bfhmskz3",
+                )
+
+                # 3. Build dynamic payload
                 dynamic_data: Dict[str, Any] = {
                     "client_id": client_id,
                     "brand_name": inp.brand_name,
@@ -415,19 +431,29 @@ class BrokerNotifyWorkflow:
                     "website_portal": inp.website_portal,
                     "cta_url": inp.cta_url,
                     "launch_date": inp.launch_date,
+                    "invite_url": invite_url,
                 }
+
+                # 4. Send final invite email
                 status_code = await workflow.execute_activity(
                     "send_member_email_type3_activity",   # Phase 3 member template
                     args=(to_email, dynamic_data),
                     schedule_to_close_timeout=EMAIL_TIMEOUT,
                 )
+
+                # 5. Record result with insert confirmation
                 results.append(
                     ItemResult(
                         client_id=client_id,
                         status="sent",
-                        detail=f"phase3_member_email:{to_email}:{status_code}",
+                        detail=f"phase3_member_email:{to_email}:{status_code} "
+                               f"(portal_id={insert_result['portal_id']}, "
+                               f"mobile_id={insert_result['mobile_id']})",
                     )
                 )
 
-        # 14. return batch result
-        return BatchResult(tab_name=inp.tab_name, processed=results)
+    # Final return
+        return BatchResult(
+            tab_name=inp.tab_name,
+            processed=results,
+        )
