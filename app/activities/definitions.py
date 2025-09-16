@@ -1,5 +1,7 @@
 from temporalio import activity
 from app.activities import sheets, data_api, email
+from app.activities.accounts.accounts import insert_member_accounts
+
 
 
 # --- Sheets ---
@@ -12,6 +14,15 @@ async def read_rows_activity(tab_name: str):
 @activity.defn
 async def get_member_emails_activity(client_id: int) -> list[str]:
     return data_api.get_member_emails_by_client_id(client_id)
+
+
+
+from temporalio import activity
+from app.activities.accounts.accounts import insert_member_accounts
+
+@activity.defn
+def insert_member_accounts_activity(email: str, company_id: str) -> dict:
+    return insert_member_accounts(email, company_id)
 
 
 
@@ -75,6 +86,13 @@ async def send_client_email_type3_activity(to_email: str, dynamic_data: dict):
 
 
 # --- Emails: Members ---
+
+@activity.defn
+async def insert_member_accounts_activity(email: str, company_id: str):
+    """Insert portal + mobile accounts for a member in the accounts table."""
+    return insert_member_accounts(email, company_id)
+
+
 @activity.defn
 async def send_member_email_type1_activity(to_email: str, dynamic_data: dict):
     """Send member email using template 1."""

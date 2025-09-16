@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     # --- Data API ---
     DATA_API_BASE_URL: str
     DATA_API_DB_KEY: str
+    DATA_API_ACCOUNTS_DB_KEY: str 
     AUTH_STATIC_BEARER_TOKEN: str
 
     # --- Google Sheets ---
@@ -39,6 +40,10 @@ class Settings(BaseSettings):
     SENDGRID_MEMBER_TEMPLATE_1: str
     SENDGRID_MEMBER_TEMPLATE_2: str
     SENDGRID_MEMBER_TEMPLATE_3: str
+
+    # --- Invite links ---
+    INVITE_SECRET_KEY: str
+    INVITE_ORIGIN: str
 
     # --- Safety override (for testing) ---
     SAFETY_EMAIL_OVERRIDE: Optional[str] = None

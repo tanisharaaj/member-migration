@@ -12,6 +12,9 @@ build/
 # ---- Virtual env ----
 .venv/
 env/
+.env
+*.env
+
 venv/
 
 # ---- OS files ----
@@ -35,3 +38,4 @@ Migration documentation.docx
 Temporal Migration Testing.docx
 Temporal Migration Testing.pdf
 
+.env

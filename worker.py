@@ -4,6 +4,7 @@ from temporalio.worker import Worker
 
 from app.settings import settings
 from app.workflows.broker_notify import BrokerNotifyWorkflow
+from app.workflows.single_member_test import TestSingleMemberWorkflow
 
 print("DEBUG: SENDGRID_API_KEY prefix:", settings.SENDGRID_API_KEY[:8])
 print("DEBUG: FROM_EMAIL:", settings.SENDGRID_FROM_EMAIL)
@@ -15,9 +16,8 @@ from app.activities.definitions import (
     get_broker_ids_for_client_activity,
     get_broker_email_activity,
     get_client_emails_activity,
-    get_member_emails_activity,   
+    get_member_emails_activity,
     get_all_client_ids_activity,
-
 
     # broker emails
     send_broker_email_type1_activity,
@@ -32,9 +32,10 @@ from app.activities.definitions import (
     send_member_email_type1_activity,
     send_member_email_type2_activity,
     send_member_email_type3_activity,
-    
-)
 
+    # accounts
+    insert_member_accounts_activity,   # 👈 NEW
+)
 
 
 async def main():
@@ -50,7 +51,7 @@ async def main():
     worker = Worker(
         client,
         task_queue=task_queue,
-        workflows=[BrokerNotifyWorkflow],
+        workflows=[BrokerNotifyWorkflow, TestSingleMemberWorkflow],
         activities=[
             # sheets + lookups
             read_rows_activity,
@@ -59,7 +60,6 @@ async def main():
             get_client_emails_activity,
             get_member_emails_activity,
             get_all_client_ids_activity,
-
 
             # broker emails
             send_broker_email_type1_activity,
@@ -74,6 +74,9 @@ async def main():
             send_member_email_type1_activity,
             send_member_email_type2_activity,
             send_member_email_type3_activity,
+
+            # accounts
+            insert_member_accounts_activity,   #  NEW
         ],
     )
 
