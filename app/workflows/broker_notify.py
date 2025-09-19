@@ -128,6 +128,7 @@ class BrokerNotifyWorkflow:
                 "appstore_link": inp.appstore_link,
                 "playstore_link": inp.playstore_link,
                 "website_portal": inp.website_portal,
+                "launch_date": inp.launch_date,
                 "cta_url": inp.cta_url,
             }
 
@@ -173,6 +174,7 @@ class BrokerNotifyWorkflow:
                     "appstore_link": inp.appstore_link,
                     "playstore_link": inp.playstore_link,
                     "website_portal": inp.website_portal,
+                    "launch_date": inp.launch_date,
                     "cta_url": inp.cta_url,
                 }
                 status_code = await workflow.execute_activity(
@@ -216,6 +218,7 @@ class BrokerNotifyWorkflow:
                     "appstore_link": inp.appstore_link,
                     "playstore_link": inp.playstore_link,
                     "website_portal": inp.website_portal,
+                    "launch_date": inp.launch_date,
                     "cta_url": inp.cta_url,
                 }
                 status_code = await workflow.execute_activity(
@@ -291,6 +294,7 @@ class BrokerNotifyWorkflow:
                     "appstore_link": inp.appstore_link,
                     "playstore_link": inp.playstore_link,
                     "website_portal": inp.website_portal,
+                    "launch_date": inp.launch_date,
                     "cta_url": inp.cta_url,
                 }
                 status_code = await workflow.execute_activity(
@@ -334,6 +338,7 @@ class BrokerNotifyWorkflow:
                     "appstore_link": inp.appstore_link,
                     "playstore_link": inp.playstore_link,
                     "website_portal": inp.website_portal,
+                    "launch_date": inp.launch_date,
                     "cta_url": inp.cta_url,
                 }
                 status_code = await workflow.execute_activity(
