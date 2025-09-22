@@ -114,3 +114,13 @@ def get_all_client_ids() -> list[int]:
     return [int(r["id"]) for r in rows] if rows else []
 
 
+def get_client_name_by_id(client_id: int) -> Optional[str]:
+    rows = _select(
+        table="clients",
+        columns=["client_name"],
+        filters={"id": client_id},
+    )
+    return rows[0]["client_name"] if rows else None
+
+
+

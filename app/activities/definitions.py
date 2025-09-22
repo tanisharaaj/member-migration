@@ -52,6 +52,11 @@ async def get_all_client_ids_activity() -> list[int]:
     return data_api.get_all_client_ids()
 
 
+@activity.defn
+async def get_client_name_activity(client_id: int) -> str:
+    """Return the client_name from the clients table."""
+    return data_api.get_client_name_by_id(client_id)
+
 
 # --- Emails: Brokers ---
 @activity.defn

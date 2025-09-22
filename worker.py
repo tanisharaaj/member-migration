@@ -18,6 +18,7 @@ from app.activities.definitions import (
     get_client_emails_activity,
     get_member_emails_activity,
     get_all_client_ids_activity,
+    get_client_name_activity, 
 
     # broker emails
     send_broker_email_type1_activity,
@@ -34,7 +35,7 @@ from app.activities.definitions import (
     send_member_email_type3_activity,
 
     # accounts
-    insert_member_accounts_activity,   # 👈 NEW
+    insert_member_accounts_activity,   
 )
 
 
@@ -60,6 +61,7 @@ async def main():
             get_client_emails_activity,
             get_member_emails_activity,
             get_all_client_ids_activity,
+            get_client_name_activity, 
 
             # broker emails
             send_broker_email_type1_activity,
