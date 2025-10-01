@@ -95,23 +95,23 @@ class BrokerNotifyWorkflow:
 
         # Phase 1: Send emails to brokers, clients, and members
         await self.send_broker_emails_phase1(broker_to_clients, inp, results)
-        await workflow.sleep(workflow.timedelta(minutes=2))
+        await workflow.sleep(workflow.timedelta(seconds=30))
         await self.send_client_emails_phase1(client_ids_from_sheet, inp, results)
-        await workflow.sleep(workflow.timedelta(minutes=2))
+        await workflow.sleep(workflow.timedelta(seconds=30))
         await self.send_member_emails_phase1(client_ids_from_sheet, inp, results)
 
         # Phase 2: Send reminder emails
-        await workflow.sleep(workflow.timedelta(minutes=5))
+        await workflow.sleep(workflow.timedelta(minutes=1))
         await self.send_broker_emails_phase2(broker_to_clients, inp, results)
-        await workflow.sleep(workflow.timedelta(minutes=2))
+        await workflow.sleep(workflow.timedelta(seconds=30))
         await self.send_client_emails_phase2(client_ids_from_sheet, inp, results)
-        await workflow.sleep(workflow.timedelta(minutes=2))
+        await workflow.sleep(workflow.timedelta(seconds=30))
         await self.send_member_emails_phase2(client_ids_from_sheet, inp, results)
 
         # Phase 3: Final follow-up emails
-        await workflow.sleep(workflow.timedelta(minutes=5))
+        await workflow.sleep(workflow.timedelta(minutes=1))
         await self.send_client_emails_phase3(client_ids_from_sheet, inp, results)
-        await workflow.sleep(workflow.timedelta(minutes=2))
+        await workflow.sleep(workflow.timedelta(seconds=30))
         await self.send_member_emails_phase3(client_ids_from_sheet, inp, results)
 
         return BatchResult(tab_name=inp.tab_name, processed=results)
